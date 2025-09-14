@@ -21,33 +21,33 @@ def get_snapshot() -> Dict[str, Any]:
     
     try:
         snapshot = {
-            'timestamp': snapshot_time,
-            'hostname': socket.gethostname(),
+            "timestamp": snapshot_time,
+            "hostname": socket.gethostname(),
             
             # System-wide metrics
-            'cpu_percent': psutil.cpu_percent(interval=0.1),
-            'memory': {
-                'total_gb': psutil.virtual_memory().total / BYTES_PER_GB,
-                'available_gb': psutil.virtual_memory().available / BYTES_PER_GB,
-                'percent_used': psutil.virtual_memory().percent
+            "cpu_percent": psutil.cpu_percent(interval=0.1),
+            "memory": {
+                "total_gb": psutil.virtual_memory().total / BYTES_PER_GB,
+                "available_gb": psutil.virtual_memory().available / BYTES_PER_GB,
+                "percent_used": psutil.virtual_memory().percent
             },
-            'load_avg': psutil.getloadavg(),  # 1min, 5min, 15min averages
+            "load_avg": psutil.getloadavg(),  # 1min, 5min, 15min averages
             
             # Top processes (implemented)
-            'top_cpu_processes': top_cpu(n=10)['top_cpu_processes'],
-            'top_mem_processes': top_mem(n=10)['top_mem_processes'],
+            "top_cpu_processes": top_cpu(n=10)["top_cpu_processes"],
+            "top_mem_processes": top_mem(n=10)["top_mem_processes"],
             
-            # Disk info (TODO: implement disk_usage)
-            # 'disk_usage': disk_usage(top_n=5),
+            # Disk info
+            "disk_usage": disk_usage(top_n=5),
             
             # Network connections (TODO: implement connections_summary)
-            # 'network_connections': connections_summary(limit=50),
+            # "network_connections": connections_summary(limit=50),
             
             # Disk I/O (TODO: implement disk_io_brief) 
-            # 'disk_io': disk_io_brief(sample_interval_s=1),
+            # "disk_io": disk_io_brief(sample_interval_s=1),
             
             # Network I/O (TODO: implement net_io_brief)
-            # 'network_io': net_io_brief(sample_interval_s=1),
+            # "network_io": net_io_brief(sample_interval_s=1),
         }
         
         logging.debug(f"get_snapshot: captured snapshot with {len(snapshot['top_cpu_processes'])} CPU processes, {len(snapshot['top_mem_processes'])} memory processes")
@@ -56,9 +56,9 @@ def get_snapshot() -> Dict[str, Any]:
     except Exception as e:
         logging.error(f"get_snapshot: failed to capture snapshot: {e}")
         return {
-            'timestamp': snapshot_time,
-            'hostname': socket.gethostname(),
-            'error': str(e)
+            "timestamp": snapshot_time,
+            "hostname": socket.gethostname(),
+            "error": str(e)
         }
 
 def get_recent_metrics(window: str = "5m", interval_s: int = 3) -> Dict[str, Any]:
