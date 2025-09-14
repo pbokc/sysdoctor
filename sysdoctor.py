@@ -22,11 +22,22 @@ def snapshot_collector(sample_interval_s: int = 10):
         time.sleep(sample_interval_s)
 
 def main():
-    load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))  # Load environment variables from .env file
-    
     parser = argparse.ArgumentParser(description="sysdoctor - diagnose your computer")
     parser.add_argument("--log-level", default="INFO", help="Logging level")
     args = parser.parse_args()
+    
+    # Load environment variables from .env file in script directory
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    env_path = os.path.join(script_dir, ".env")
+    logging.info(f"Looking for .env at: {env_path}")
+    logging.info(f".env exists: {os.path.exists(env_path)}")
+    if os.path.exists(env_path):
+        load_dotenv(env_path)
+        logging.info(f"Loaded .env from: {env_path}")
+    else:
+        print("Exiting sysdoctor. No .env file found, please create one with your OPENAI_API_KEY.")
+        return
+    
     logging.basicConfig(
         level=args.log_level,
         filename="sysdoctor.log",
