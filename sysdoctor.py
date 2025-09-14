@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import logging
+import os
 import sys
 import threading
 import time
@@ -21,12 +22,16 @@ def snapshot_collector(sample_interval_s: int = 10):
         time.sleep(sample_interval_s)
 
 def main():
+    load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))  # Load environment variables from .env file
+    
     parser = argparse.ArgumentParser(description="sysdoctor - diagnose your computer")
     parser.add_argument("--log-level", default="INFO", help="Logging level")
     args = parser.parse_args()
-    logging.basicConfig(level=args.log_level, filename="sysdoctor.log")
-
-    load_dotenv()  # Load environment variables from .env file
+    logging.basicConfig(
+        level=args.log_level,
+        filename="sysdoctor.log",
+        format="%(asctime)s %(levelname)s %(message)s"
+    )
 
     snapshot_thread = threading.Thread(target=snapshot_collector, daemon=True)
     snapshot_thread.start()

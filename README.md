@@ -3,9 +3,9 @@ A command line AI assistant that figures out why your computer is slow
 
 ## Setup
 1. Install dependencies: `pip install -r requirements.txt`
-2. Create `.env` file with your OpenAI API key:
+2. Create a `.env` file in the `sysdoctor` directory:
    ```
-   OPENAI_API_KEY="your_api_key_here"
+   OPENAI_API_KEY=your_api_key_here
    ```
 
 ## Usage
