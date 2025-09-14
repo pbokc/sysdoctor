@@ -9,7 +9,7 @@ def main():
     parser = argparse.ArgumentParser(description="sysdoctor - diagnose your computer")
     parser.add_argument("--log-level", default="INFO", help="Logging level")
     args = parser.parse_args()
-    logging.basicConfig(level=args.log_level)
+    logging.basicConfig(level=args.log_level, filename="sysdoctor.log")
 
     load_dotenv()  # Load environment variables from .env file
     
