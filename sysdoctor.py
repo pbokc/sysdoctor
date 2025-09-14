@@ -7,6 +7,8 @@ import threading
 import time
 
 from collections import deque
+from colorama import Fore, Style
+import colorama
 from dotenv import load_dotenv
 from llm_api_client import create_prompt_and_get_response
 from sys_tools import get_snapshot
@@ -22,6 +24,9 @@ def snapshot_collector(sample_interval_s: int = 10):
         time.sleep(sample_interval_s)
 
 def main():
+    # Initialize colorama for cross-platform color support
+    colorama.init()
+    
     parser = argparse.ArgumentParser(description="sysdoctor - diagnose your computer")
     parser.add_argument("--log-level", default="INFO", help="Logging level")
     args = parser.parse_args()
@@ -49,7 +54,8 @@ def main():
 
     while True:
         try:
-            prompt = input("you> ")
+            print()  # Add spacing before prompt
+            prompt = input(f"{Fore.BLUE}you>{Style.RESET_ALL} ")
             if prompt.lower() in ['exit', 'quit']:
                 print("Exiting sysdoctor.")
                 break
@@ -58,7 +64,7 @@ def main():
             else:
                 logging.info(f"Executing command: {prompt}")
                 response = create_prompt_and_get_response(prompt)
-                print(f"sysdoctor> {response}")
+                print(f"\n{Fore.GREEN}sysdoctor>{Style.RESET_ALL} {response}\n")
         except (KeyboardInterrupt, EOFError):
             print("\nExiting sysdoctor.")
             break
