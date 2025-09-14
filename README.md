@@ -9,9 +9,26 @@ A command line AI assistant that figures out why your computer is slow
    ```
 
 ## Usage
+### Run as a CLI command (recommended)
+```bash
+sysdoctor [--log-level LEVEL]
+```
+
+### Run as a Python script
 ```bash
 python sysdoctor.py [--log-level LEVEL]
 ```
+
+#### One-time setup for CLI usage
+1. Make the script executable:
+   ```bash
+   chmod +x sysdoctor.py
+   ```
+2. Create a symlink to `/usr/local/bin`:
+   ```bash
+   ln -sf "$PWD/sysdoctor.py" /usr/local/bin/sysdoctor
+   ```
+3. Now you can run `sysdoctor` from anywhere in your terminal.
 
 **Arguments:**
 - `--log-level`: Set logging level (default: INFO)
