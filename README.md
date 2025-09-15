@@ -9,7 +9,7 @@ sysdoctor provides LLMs real-time system data from your machine:
 - Maintains a (small) history of system snapshots to track performance trends
 - Automatically includes current system state as context for every user question
 
-The goal is to get specific action items based on your machine's state than generic advice.
+The goal is to get specific action items based on your machine's state rather than generic advice.
 
 ## Example
 ![Demo of sysdoctor in action](sysdoctor_demo.png)
